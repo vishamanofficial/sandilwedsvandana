@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="mr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>संदिल & वंदना | The Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Gotu&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-alabaster: #FAF6F0;
+      --bg-champagne: #F3ECE1;
+      --bg-rosewood: #280811;
+      --bg-plum: #3D0C1A;
+      --accent-gold: #C5A059;
+      --accent-gold-light: #E6C98A;
+      --accent-terracotta: #9E2A2B;
+      --accent-pistachio: #8C9A6E;
+      --text-ebony: #231619;
+      --text-muted: #6E5A5E;
+      --glass-white: rgba(255, 252, 247, 0.78);
+      --glass-border: rgba(197, 160, 89, 0.32);
+      --shadow-luxury: 0 20px 50px rgba(40, 8, 17, 0.08);
+      --shadow-gold: 0 10px 30px rgba(197, 160, 89, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #140408;
+      color: var(--text-ebony);
+      font-family: 'Plus Jakarta Sans', 'Gotu', sans-serif;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Noise Texture Overlay */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Mobile App Canvas */
+    .app-shell {
+      width: 100%;
+      max-width: 460px;
+      background-color: var(--bg-alabaster);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
+      padding-bottom: 90px;
+    }
+
+    /* Royal Curtain / Envelope Intro Overlay */
+    #intro-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      background: rgba(15, 3, 7, 0.96);
+      backdrop-filter: blur(12px);
+      transition: opacity 0.9s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.9s;
+    }
+
+    .curtain-inner {
+      width: 100%;
+      max-width: 460px;
+      height: 100%;
+      background: radial-gradient(circle at 50% 35%, #4F1022 0%, #24060E 75%, #160308 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 55px 30px 60px;
+      text-align: center;
+      color: #FAF6F0;
+      position: relative;
+      border-left: 1px solid rgba(197, 160, 89, 0.2);
+      border-right: 1px solid rgba(197, 160, 89, 0.2);
+    }
+
+    .curtain-arch-frame {
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(197, 160, 89, 0.35);
+      border-radius: 220px 220px 24px 24px;
+      pointer-events: none;
+    }
+
+    .wax-seal-btn {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #F1D393, #C5A059 60%, #8C6928 100%);
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 0 8px rgba(197, 160, 89, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #280811;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      animation: sealPulse 2.4s infinite;
+      margin: 15px auto;
+    }
+
+    .wax-seal-btn:hover {
+      transform: scale(1.06);
+    }
+
+    @keyframes sealPulse {
+      0%, 100% { box-shadow: 0 12px 35px rgba(0,0,0,0.6), 0 0 0 0 rgba(230, 201, 138, 0.45); }
+      50% { box-shadow: 0 12px 35px rgba(0,0,0,0.6), 0 0 0 16px rgba(230, 201, 138, 0); }
+    }
+
+    /* Floating Glass Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 36px);
+      max-width: 410px;
+      background: rgba(35, 10, 18, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(197, 160, 89, 0.38);
+      border-radius: 40px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 500;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .nav-item {
+      color: rgba(250, 246, 240, 0.68);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 25px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-item i {
+      font-size: 14px;
+      color: var(--accent-gold-light);
+    }
+
+    .nav-item.active, .nav-item:hover {
+      color: #fff;
+      background: rgba(197, 160, 89, 0.2);
+    }
+
+    /* Scroll Reveal Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Ambient Golden Dust Canvas */
+    #dust-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 40;
+    }
+
+    /* Typography Utilities */
+    .serif-display {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .devanagari-royal {
+      font-family: 'Rozha One', serif;
+    }
+
+    .devanagari-clean {
+      font-family: 'Gotu', sans-serif;
+    }
+
+    .eyebrow {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent-gold);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      padding: 36px 22px 45px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.16) 0%, transparent 60%),
+        linear-gradient(180deg, #280811 0%, #3E0D1B 58%, var(--bg-alabaster) 100%);
+      text-align: center;
+      color: #FAF6F0;
+    }
+
+    /* Intricate Mandala SVG Watermark */
+    .mandala-bg {
+      position: absolute;
+      top: -90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 440px;
+      height: 440px;
+      opacity: 0.08;
+      pointer-events: none;
+      animation: spinSlow 60s linear infinite;
+    }
+
+    @keyframes spinSlow {
+      from { transform: translateX(-50%) rotate(0deg); }
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    .invocations {
+      position: relative;
+      z-index: 2;
+      font-family: 'Gotu', sans-serif;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      color: var(--accent-gold-light);
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 14px;
+      opacity: 0.92;
+    }
+
+    .ganesh-minimal {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 14px;
+      display: block;
+    }
+
+    /* Editorial Jharokha Arch Container */
+    .jharokha-frame {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      margin: 10px auto 26px;
+      padding: 12px;
+      border-radius: 190px 190px 28px 28px;
+      background: linear-gradient(180deg, rgba(230, 201, 138, 0.45), rgba(197, 160, 89, 0.1));
+      box-shadow: 0 25px 55px rgba(15, 2, 6, 0.35);
+    }
+
+    .jharokha-inner {
+      background: linear-gradient(180deg, #FFFBF4 0%, #F4E8D4 100%);
+      border-radius: 180px 180px 20px 20px;
+      border: 1.5px solid var(--accent-gold);
+      overflow: hidden;
+      position: relative;
+      padding-top: 24px;
+    }
+
+    /* Bespoke Minimalist Artistic Couple Illustration */
+    .couple-art-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .hero-title-card {
+      background: var(--glass-white);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 26px 20px;
+      margin: -38px auto 0;
+      max-width: 360px;
+      position: relative;
+      z-index: 5;
+      box-shadow: var(--shadow-luxury);
+      color: var(--text-ebony);
+    }
+
+    .couple-monogram {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent-terracotta);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .couple-headline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .couple-headline .name-mr {
+      font-family: 'Rozha One', serif;
+      font-size: 34px;
+      color: var(--bg-plum);
+      line-height: 1.15;
+    }
+
+    .couple-headline .name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .ampersand-luxury {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--accent-gold);
+      margin: 2px 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ampersand-luxury::before,
+    .ampersand-luxury::after {
+      content: '';
+      width: 35px;
+      height: 1px;
+      background: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    .date-pill {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: var(--bg-plum);
+      color: #FAF6F0;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      box-shadow: 0 8px 20px rgba(61, 12, 26, 0.22);
+    }
+
+    /* Editorial Verse Banner */
+    .verse-section {
+      padding: 10px 24px 25px;
+      text-align: center;
+    }
+
+    .verse-box {
+      position: relative;
+      padding: 24px 20px;
+      border-top: 1px solid rgba(197, 160, 89, 0.4);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.4);
+    }
+
+    .verse-sanskrit {
+      font-family: 'Gotu', sans-serif;
+      font-size: 13.5px;
+      color: var(--accent-terracotta);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .verse-hindi {
+      font-family: 'Cormorant Garamond', 'Gotu', serif;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Section Headers */
+    .sec-head {
+      text-align: center;
+      margin-bottom: 26px;
+      padding: 0 20px;
+    }
+
+    .sec-title-mr {
+      font-family: 'Rozha One', serif;
+      font-size: 27px;
+      color: var(--bg-plum);
+      line-height: 1.25;
+    }
+
+    .sec-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .sec-divider span {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    }
+
+    /* Luxury Editorial Couple Cards */
+    .couple-section {
+      padding: 20px 22px 35px;
+    }
+
+    .editorial-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 26px 22px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(197, 160, 89, 0.28);
+      box-shadow: var(--shadow-luxury);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .editorial-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at top right, rgba(197, 160, 89, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .role-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: var(--accent-terracotta);
+      background: rgba(158, 42, 43, 0.08);
+      padding: 5px 12px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+    }
+
+    .role-tag.bride {
+      color: #3B5230;
+      background: rgba(140, 154, 110, 0.18);
+    }
+
+    .person-title {
+      font-family: 'Rozha One', serif;
+      font-size: 24px;
+      color: var(--text-ebony);
+      margin-bottom: 10px;
+    }
+
+    .person-detail {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .person-detail i {
+      color: var(--accent-gold);
+      margin-top: 5px;
+      font-size: 13px;
+      width: 16px;
+      text-align: center;
+    }
+
+    /* Countdown Glass Banner */
+    .countdown-wrap {
+      padding: 15px 22px 35px;
+    }
+
+    .countdown-luxury {
+      background: linear-gradient(145deg, #2D0913 0%, #481020 100%);
+      border-radius: 26px;
+      padding: 28px 20px;
+      color: #FAF6F0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(230, 201, 138, 0.35);
+      box-shadow: 0 20px 45px rgba(45, 9, 19, 0.25);
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .cd-cell {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(230, 201, 138, 0.24);
+      border-radius: 16px;
+      padding: 14px 6px;
+    }
+
+    .cd-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent-gold-light);
+      line-height: 1;
+    }
+
+    .cd-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 6px;
+      opacity: 0.75;
+    }
+
+    .calendar-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 9px 18px;
+      border-radius: 30px;
+      background: rgba(230, 201, 138, 0.15);
+      border: 1px solid rgba(230, 201, 138, 0.4);
+      color: var(--accent-gold-light);
+      font-size: 12px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.25s;
+    }
+
+    .calendar-chip:hover {
+      background: var(--accent-gold);
+      color: #280811;
+    }
+
+    /* Ceremony Itinerary Cards */
+    .events-section {
+      padding: 25px 22px 35px;
+      background: var(--bg-champagne);
+      border-radius: 36px 36px 0 0;
+    }
+
+    .event-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .event-card {
+      background: #FAF6F0;
+      border-radius: 20px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid rgba(197, 160, 89, 0.25);
+      box-shadow: 0 8px 24px rgba(40, 8, 17, 0.04);
+      transition: transform 0.25s ease;
+    }
+
+    .event-card.featured {
+      background: linear-gradient(135deg, #FFFDF9 0%, #F9EFE0 100%);
+      border: 1.5px solid var(--accent-gold);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .event-date-box {
+      min-width: 64px;
+      height: 70px;
+      border-radius: 16px;
+      background: var(--bg-plum);
+      color: #FAF6F0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      border: 1px solid rgba(230, 201, 138, 0.35);
+    }
+
+    .event-date-box .day {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-gold-light);
+      line-height: 1;
+    }
+
+    .event-date-box .month {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 3px;
+      opacity: 0.9;
+    }
+
+    .event-info {
+      flex: 1;
+    }
+
+    .event-name {
+      font-family: 'Rozha One', serif;
+      font-size: 19px;
+      color: var(--bg-plum);
+      margin-bottom: 3px;
+    }
+
+    .event-meta {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Venues & Interactive Maps */
+    .venue-section {
+      padding: 35px 22px;
+      background: var(--bg-alabaster);
+    }
+
+    .location-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 26px 22px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      box-shadow: var(--shadow-luxury);
+      position: relative;
+    }
+
+    .loc-icon-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .loc-pill {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: rgba(61, 12, 26, 0.08);
+      color: var(--bg-plum);
+    }
+
+    .loc-circle-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #FAF3E6;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .loc-name {
+      font-family: 'Rozha One', serif;
+      font-size: 23px;
+      color: var(--text-ebony);
+      margin-bottom: 6px;
+    }
+
+    .loc-sub {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .btn-luxury {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: 14px;
+      background: var(--bg-plum);
+      color: #FAF6F0;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      border: 1px solid rgba(230, 201, 138, 0.3);
+      box-shadow: 0 10px 24px rgba(61, 12, 26, 0.2);
+      transition: all 0.25s ease;
+    }
+
+    .btn-luxury:hover {
+      background: #280811;
+      transform: translateY(-2px);
+    }
+
+    .btn-luxury.secondary {
+      background: #FAF6F0;
+      color: var(--bg-plum);
+      border: 1.5px solid var(--accent-gold);
+      box-shadow: none;
+    }
+
+    /* Route Visual Connector */
+    .route-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: -6px 0 14px;
+      color: var(--accent-gold);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Family & Blessings */
+    .family-section {
+      padding: 25px 22px 35px;
+      background: var(--bg-champagne);
+    }
+
+    .blessing-panel {
+      background: #FAF6F0;
+      border-radius: 22px;
+      padding: 22px 20px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(197, 160, 89, 0.26);
+    }
+
+    .panel-title {
+      font-family: 'Rozha One', serif;
+      font-size: 18px;
+      color: var(--bg-plum);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .names-chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .name-chip {
+      background: #FFFFFF;
+      border: 1px solid rgba(197, 160, 89, 0.32);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      color: var(--text-ebony);
+    }
+
+    .bal-manuhar-luxury {
+      background: linear-gradient(135deg, #FFF9EC 0%, #F7E9CE 100%);
+      border: 1px solid var(--accent-gold);
+      border-radius: 22px;
+      padding: 22px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Wishes & RSVP Section */
+    .rsvp-section {
+      padding: 35px 22px;
+      background: var(--bg-alabaster);
+    }
+
+    .rsvp-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      padding: 26px 22px;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      box-shadow: var(--shadow-luxury);
+    }
+
+    .modern-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: #FAF6F0;
+      border: 1px solid rgba(197, 160, 89, 0.35);
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--text-ebony);
+      margin-bottom: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .modern-input:focus {
+      border-color: var(--bg-plum);
+    }
+
+    .btn-gold {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #D4AF61 0%, #B38A38 100%);
+      color: #230911;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(179, 138, 56, 0.28);
+    }
+
+    /* Footer */
+    .luxury-footer {
+      background: var(--bg-rosewood);
+      color: #FAF6F0;
+      text-align: center;
+      padding: 40px 24px 60px;
+      border-top: 1px solid rgba(197, 160, 89, 0.3);
+    }
+
+    .call-host-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Subtle Paper Grain Texture -->
+  <div class="noise-overlay"></div>
+
+  <!-- Ambient Golden Sparkles Canvas -->
+  <canvas id="dust-canvas"></canvas>
+
+  <!-- ROYAL GATEFOLD CURTAIN INTRO -->
+  <div id="intro-curtain">
+    <div class="curtain-inner">
+      <div class="curtain-arch-frame"></div>
+
+      <div style="margin-top: 15px;">
+        <span class="eyebrow" style="color: #E6C98A;">।। श्री गणेशाय नमः ।।</span>
+        <p class="devanagari-clean" style="font-size: 13px; color: rgba(250,246,240,0.8); margin-top: 4px;">
+          विश्वकर्मा परिवाराचे स्नेह निमंत्रण
+        </p>
+      </div>
+
+      <div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 5px; text-transform: uppercase; color: #C5A059; margin-bottom: 12px;">
+          Shubh Vivah
+        </div>
+        <h1 class="devanagari-royal" style="font-size: 42px; color: #FFF8EB; font-weight: 400; line-height: 1.15;">
+          संदिल <span style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: #E6C98A; font-size: 32px;">&</span> वंदना
+        </h1>
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: rgba(250,246,240,0.75); margin-top: 6px;">
+          Monday, 30th November 2026
+        </p>
+
+        <div style="margin-top: 32px;">
+          <button class="wax-seal-btn" onclick="openInvitation()">
+            <span style="font-size: 20px; letter-spacing: 1px;">S & V</span>
+            <span style="font-size: 9px; font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px;">Open</span>
+          </button>
+          <p style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #E6C98A; opacity: 0.85; margin-top: 12px;">
+            निमंत्रण उघडण्यासाठी टॅप करा
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 12px; color: rgba(250,246,240,0.65); line-height: 1.6;">
+        छत्रपती संभाजीनगर • संगमनेर (अहिल्यानगर)
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING MOBILE NAVIGATION DOCK -->
+  <nav class="bottom-nav">
+    <a href="#top" class="nav-item active">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      <span>निमंत्रण</span>
+    </a>
+    <a href="#couple" class="nav-item">
+      <i class="fa-regular fa-heart"></i>
+      <span>वर-वधू</span>
+    </a>
+    <a href="#itinerary" class="nav-item">
+      <i class="fa-regular fa-calendar-check"></i>
+      <span>कार्यक्रम</span>
+    </a>
+    <a href="#venues" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>मॅप/स्थळ</span>
+    </a>
+    <a href="#wishes" class="nav-item">
+      <i class="fa-regular fa-paper-plane"></i>
+      <span>शुभेच्छा</span>
+    </a>
+  </nav>
+
+  <!-- MAIN MOBILE CONTAINER -->
+  <main class="app-shell" id="top">
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <!-- Rotating Geometric Mandala SVG -->
+      <svg class="mandala-bg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#E6C98A" stroke-width="0.6" fill="none">
+          <circle cx="100" cy="100" r="90"/>
+          <circle cx="100" cy="100" r="75"/>
+          <circle cx="100" cy="100" r="58"/>
+          <circle cx="100" cy="100" r="40"/>
+          <path d="M100 10 L100 190 M10 100 L190 100 M36 36 L164 164 M36 164 L164 36"/>
+          <polygon points="100,15 122,78 185,100 122,122 100,185 78,122 15,100 78,78"/>
+          <polygon points="100,25 135,65 175,100 135,135 100,175 65,135 25,100 65,65" transform="rotate(22.5 100 100)"/>
+        </g>
+      </svg>
+
+      <div class="invocations">
+        <span>।। श्री गणेशाय नमः ।।</span>
+        <span>•</span>
+        <span>।। श्री विश्वकर्मणे नमः ।।</span>
+      </div>
+
+      <!-- Fine-Line Gold Ganesha Crest -->
+      <svg class="ganesh-minimal" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="30" stroke="#E6C98A" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <path d="M32 12L36 20H28L32 12Z" fill="#E6C98A"/>
+        <path d="M24 24C19 25 18 32 23 35M40 24C45 25 46 32 41 35" stroke="#E6C98A" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M27 24C27 24 32 26 37 24C35 32 35 39 31 44C28 47 24 44 26 40" stroke="#E6C98A" stroke-width="2" stroke-linecap="round"/>
+        <path d="M35 37C39 37 42 35 43 32" stroke="#E6C98A" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="32" cy="28" r="1.8" fill="#E6C98A"/>
+      </svg>
+
+      <span class="eyebrow" style="color: #E6C98A; letter-spacing: 4px;">A Royal Maharashtrian Union</span>
+
+      <!-- Jharokha Arch Frame with Custom Editorial Couple Illustration -->
+      <div class="jharokha-frame">
+        <div class="jharokha-inner">
+          <svg class="couple-art-svg" viewBox="0 0 360 350" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sunHalo" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#F7E4BC" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#F4E8D4" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="kurtaShade" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F5EFE6"/>
+                <stop offset="100%" stop-color="#E2D5C1"/>
+              </linearGradient>
+              <linearGradient id="sareePistachio" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C8CC4B"/>
+                <stop offset="100%" stop-color="#9BA832"/>
+              </linearGradient>
+              <linearGradient id="zariBorder" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#8A1C2B"/>
+                <stop offset="50%" stop-color="#D4AF37"/>
+                <stop offset="100%" stop-color="#8A1C2B"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Architectural Arch Lines & Sunburst -->
+            <circle cx="180" cy="145" r="108" fill="url(#sunHalo)"/>
+            <circle cx="180" cy="145" r="116" stroke="#C5A059" stroke-width="0.8" stroke-dasharray="4 4" fill="none"/>
+            <path d="M30 350 L30 160 C30 70 330 70 330 160 L330 350" stroke="#C5A059" stroke-width="1" fill="none" opacity="0.55"/>
+
+            <!--Hanging Temple Marigold & Jasmine Toran -->
+            <path d="M30 95 Q105 130 180 95 Q255 130 330 95" stroke="#D97724" stroke-width="4" stroke-dasharray="2 6" stroke-linecap="round" fill="none"/>
+            <path d="M30 87 Q105 122 180 87 Q255 122 330 87" stroke="#E8B84B" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round" fill="none"/>
+
+            <!-- ==================== GROOM ILLUSTRATION (Left, modeled from photo) ==================== -->
+            <g id="editorial-groom">
+              <!-- Shoulders & Tailored Cream-Beige Shirt/Kurta -->
+              <path d="M44 350 C48 258 76 232 132 230 C176 232 196 258 202 350 Z" fill="url(#kurtaShade)" stroke="#3D2B27" stroke-width="1.6"/>
+              <!-- Royal Maroon Velvet Dupatta / Shawl -->
+              <path d="M72 238 C88 275 102 312 110 350 L82 350 C74 312 65 275 58 248 Z" fill="#631021"/>
+              <path d="M72 238 C88 275 102 312 110 350" stroke="#D4AF37" stroke-width="2.2" fill="none"/>
+              <!-- Crisp Collar & Placket (matching photo shirt) -->
+              <path d="M104 228 L124 252 L134 238" fill="#FAF6F0" stroke="#3D2B27" stroke-width="1.4"/>
+              <path d="M156 228 L138 252 L134 238" fill="#FAF6F0" stroke="#3D2B27" stroke-width="1.4"/>
+              <line x1="134" y1="246" x2="134" y2="350" stroke="#3D2B27" stroke-width="1.2"/>
+              <circle cx="134" cy="268" r="2" fill="#3D2B27"/>
+              <circle cx="134" cy="296" r="2" fill="#3D2B27"/>
+              <path d="M152 282 L172 282" stroke="#3D2B27" stroke-width="1.8" stroke-linecap="round"/>
+
+              <!-- Neck -->
+              <path d="M116 196 L116 234 Q131 244 146 234 L146 196 Z" fill="#D9A17C"/>
+
+              <!-- Face Contour -->
+              <path d="M99 144 C99 114 163 114 163 144 C163 182 149 206 131 206 C113 206 99 182 99 144 Z" fill="#E3AD86" stroke="#3D2B27" stroke-width="1.5"/>
+
+              <!-- Ears -->
+              <path d="M99 152 C93 152 93 168 100 170" fill="#E3AD86" stroke="#3D2B27" stroke-width="1.4"/>
+              <path d="M163 152 C169 152 169 168 162 170" fill="#E3AD86" stroke="#3D2B27" stroke-width="1.4"/>
+
+              <!-- Groom Styled Quiff Hair (matching photo) -->
+              <path d="M98 150 C94 122 105 102 132 102 C158 102 168 120 163 150 C160 132 152 122 131 122 C110 122 102 132 98 150 Z" fill="#1F1614"/>
+
+              <!-- Expressive Brows & Eyes -->
+              <path d="M109 146 Q118 142 125 145" stroke="#1F1614" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <path d="M137 145 Q144 142 153 146" stroke="#1F1614" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              <circle cx="117" cy="153" r="2.6" fill="#1F1614"/>
+              <circle cx="145" cy="153" r="2.6" fill="#1F1614"/>
+
+              <!-- Nose -->
+              <path d="M131 151 L130 166 Q131 169 135 167" stroke="#3D2B27" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+              <!-- Full Trimmed Beard & Moustache (from photo) -->
+              <path d="M99 160 C101 182 112 207 131 207 C150 207 161 182 163 160 C158 175 152 188 131 189 C110 188 104 175 99 160 Z" fill="#1F1614"/>
+              <path d="M114 174 Q131 168 148 174 Q139 180 131 177 Q123 180 114 174 Z" fill="#1F1614"/>
+              <!-- Warm Smile -->
+              <path d="M121 178 Q131 185 141 178" stroke="#FAF6F0" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+              <!-- Maharashtrian Pearl Mundavalya & Tilak -->
+              <line x1="131" y1="132" x2="131" y2="141" stroke="#B71C1C" stroke-width="2.6" stroke-linecap="round"/>
+              <path d="M100 135 Q131 131 162 135" stroke="#FFF8E7" stroke-width="3" stroke-dasharray="2 3" fill="none"/>
+              <path d="M101 135 L99 182" stroke="#FFF8E7" stroke-width="2.5" stroke-dasharray="2 3"/>
+              <circle cx="99" cy="185" r="3" fill="#C5A059"/>
+            </g>
+
+            <!-- ==================== BRIDE ILLUSTRATION (Right, modeled from photo) ==================== -->
+            <g id="editorial-bride">
+              <!-- Flowing Cascading Hair Behind Shoulders -->
+              <path d="M196 146 C192 185 256 185 268 242 C245 250 195 245 196 146 Z" fill="#1E1412"/>
+
+              <!-- Lime-Chartreuse & Gold Embroidered Suit/Saree (directly inspired by photo) -->
+              <path d="M168 350 C174 264 196 238 236 236 C276 238 298 265 308 350 Z" fill="url(#sareePistachio)" stroke="#3D2B27" stroke-width="1.6"/>
+
+              <!-- Intricate Zari V-Neckline Embroidery (matching the bride's chartreuse outfit in photo) -->
+              <path d="M212 237 L236 276 L260 237" fill="none" stroke="#8A1C2B" stroke-width="5"/>
+              <path d="M212 237 L236 276 L260 237" fill="none" stroke="#FFE082" stroke-width="2" stroke-dasharray="3 2"/>
+              <!-- Center Floral Zari Motif on Kurta -->
+              <circle cx="236" cy="296" r="10" fill="#8A1C2B" stroke="#FFE082" stroke-width="1.5"/>
+              <circle cx="236" cy="296" r="4" fill="#FFE082"/>
+
+              <!-- Rich Gold & Crimson Paithani Dupatta draped on right shoulder (as in photo) -->
+              <path d="M182 244 C202 238 214 238 216 238 L228 350 L176 350 Z" fill="#E5C158" stroke="#8A1C2B" stroke-width="1.5"/>
+              <path d="M212 238 L224 350" stroke="#8A1C2B" stroke-width="5"/>
+              <path d="M212 238 L224 350" stroke="#FFF3C4" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+              <!-- Neck & Delicate Pearl Pendant -->
+              <path d="M223 202 L223 239 L249 239 L249 202 Z" fill="#E8B48E"/>
+              <path d="M222 224 Q236 238 250 224" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+              <circle cx="236" cy="232" r="2.8" fill="#FFFDF7"/>
+
+              <!-- Bride Face Contour -->
+              <path d="M206 152 C206 122 264 122 264 152 C264 186 250 208 235 208 C220 208 206 186 206 152 Z" fill="#F0BE98" stroke="#3D2B27" stroke-width="1.5"/>
+
+              <!-- Bride Hair Crown -->
+              <path d="M205 156 C202 124 218 110 236 110 C256 110 269 126 265 156 C258 134 246 128 232 128 C218 128 210 138 205 156 Z" fill="#1E1412"/>
+
+              <!-- Gold Drop Jhumka Earring (visible in photo) -->
+              <circle cx="265" cy="175" r="4.5" fill="#FFE082" stroke="#9E6B14" stroke-width="1.2"/>
+              <circle cx="265" cy="175" r="1.8" fill="#8A1C2B"/>
+
+              <!-- Brows, Joyful Eyes & Radiant Smile -->
+              <path d="M214 150 Q222 146 229 149" stroke="#1E1412" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M241 149 Q248 146 256 150" stroke="#1E1412" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="222" cy="157" r="2.5" fill="#1E1412"/>
+              <circle cx="248" cy="157" r="2.5" fill="#1E1412"/>
+
+              <!-- Nose & Traditional Maharashtrian Pearl Nath -->
+              <path d="M235 155 L233 169 Q235 172 238 170" stroke="#3D2B27" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+              <circle cx="228" cy="168" r="5" fill="none" stroke="#FFFDF7" stroke-width="2" stroke-dasharray="1.5 1"/>
+              <circle cx="226" cy="168" r="1.6" fill="#B71C1C"/>
+
+              <!-- Radiant Broad Smile (signature from photo) -->
+              <path d="M223 179 Q235 190 247 179 Z" fill="#FFFFFF" stroke="#9E2A2B" stroke-width="1.5"/>
+
+              <!-- Chandrakor Bindi & Mundavalya -->
+              <path d="M232 142 Q235 145 238 142" stroke="#9E2A2B" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M207 139 Q235 135 263 139" stroke="#FFF8E7" stroke-width="2.8" stroke-dasharray="2 3" fill="none"/>
+              <path d="M262 139 L264 185" stroke="#FFF8E7" stroke-width="2.4" stroke-dasharray="2 3"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Glassmorphic Hero Monogram & Title Card -->
+      <div class="hero-title-card reveal">
+        <div class="couple-monogram">।। शुभविवाह सोहळा ।।</div>
+        <div class="couple-headline">
+          <span class="name-mr">चि. संदिल</span>
+          <span class="name-en">Sandil Vishwakarma</span>
+          <div class="ampersand-luxury">&</div>
+          <span class="name-mr">चि. सौ. कां. वंदना</span>
+          <span class="name-en">Vandana Vishwakarma</span>
+        </div>
+
+        <div class="date-pill">
+          <i class="fa-regular fa-calendar" style="color: var(--accent-gold-light);"></i>
+          <span>सोमवार, ३० नोव्हेंबर २०२६ • रात्रौ ८:०० वा.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SACRED SHLOKA & POETIC INVITATION -->
+    <section class="verse-section reveal">
+      <div class="verse-box">
+        <p class="verse-sanskrit">
+          “मंगलम भगवान विष्णु मंगलम् गरुडध्वजा ।<br>
+          मंगलम पुंडरीकाक्ष मंगलाय तनो हरी ।।”
+        </p>
+        <p class="verse-hindi">
+          भेज रहा हूँ स्नेह निमंत्रण प्रियवर तुम्हें बुलाने को,<br>
+          हे मानस के राजहंस भूल न जाना आने को।<br>
+          भगवान श्री विश्वकर्माजी की असीम कृपा से इस शुभ मंगल बेला पर पधारकर वर-वधू को शुभ आशीर्वाद प्रदान करें।
+        </p>
+      </div>
+    </section>
+
+    <!-- COUPLE & LINEAGE EDITORIAL CARDS -->
+    <section class="couple-section" id="couple">
+      <div class="sec-head reveal">
+        <span class="eyebrow">The Couple & Lineage</span>
+        <h2 class="sec-title-mr">वर आणि वधू परिचय</h2>
+        <div class="sec-divider"><span></span><i class="fa-solid fa-diamond" style="font-size: 7px; color: var(--accent-gold);"></i><span></span></div>
+      </div>
+
+      <!-- Groom Editorial Card -->
+      <div class="editorial-card reveal">
+        <div class="role-tag">
+          <i class="fa-solid fa-crown"></i> चि. वर (The Groom)
+        </div>
+        <h3 class="person-title">चि. संदिल विश्वकर्मा</h3>
+        <div class="person-detail">
+          <i class="fa-solid fa-hands-holding-child"></i>
+          <div><strong>सुपुत्र:</strong> स्व. सरितादेवी व श्री. मुरलीधर विश्वकर्मा एवं सौ. बबीता विश्वकर्मा</div>
+        </div>
+        <div class="person-detail">
+          <i class="fa-solid fa-house-chimney"></i>
+          <div><strong>निवास:</strong> प्लॉट नं. ०७, भारतनगर, गारखेडा परिसर, छत्रपती संभाजीनगर (महाराष्ट्र)</div>
+        </div>
+        <div class="person-detail" style="margin-bottom: 0;">
+          <i class="fa-solid fa-seedling"></i>
+          <div><strong>मूळ गाव:</strong> बेलापार, पोस्ट - नौपेड़वा, जिल्हा - जौनपूर (उ.प्र.)</div>
+        </div>
+      </div>
+
+      <!-- Bride Editorial Card -->
+      <div class="editorial-card reveal" style="margin-bottom: 0;">
+        <div class="role-tag bride">
+          <i class="fa-solid fa-spa"></i> चि. सौ. कां. वधू (The Bride)
+        </div>
+        <h3 class="person-title">चि. सौ. कां. वंदना विश्वकर्मा</h3>
+        <div class="person-detail">
+          <i class="fa-solid fa-hands-holding-child"></i>
+          <div><strong>सुपुत्री:</strong> सौ. पार्वती व श्री. मनोज विश्वकर्मा</div>
+        </div>
+        <div class="person-detail">
+          <i class="fa-solid fa-location-dot"></i>
+          <div><strong>निवास:</strong> संगमनेर, जिल्हा - अहिल्यानगर (महाराष्ट्र)</div>
+        </div>
+        <div class="person-detail" style="margin-bottom: 0;">
+          <i class="fa-solid fa-seedling"></i>
+          <div><strong>मूळ गाव:</strong> भुसहरा, पोस्ट - गुतवन, जिल्हा - जौनपूर (उ.प्र.)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUXURY COUNTDOWN BANNER -->
+    <section class="countdown-wrap reveal">
+      <div class="countdown-luxury">
+        <span class="eyebrow" style="color: var(--accent-gold-light);">Counting Down To Forever</span>
+        <h3 class="devanagari-royal" style="font-size: 23px; font-weight: 400; color: #FFF;">
+          शुभ मुहूर्ताची मंगल घटिका
+        </h3>
+        <p style="font-size: 12px; opacity: 0.8; margin-top: 4px;">
+          मार्गशीर्ष मास, कृष्ण पक्ष षष्ठी • सोमवार, ३० नोव्हेंबर २०२६
+        </p>
+
+        <div class="countdown-grid">
+          <div class="cd-cell">
+            <div class="cd-num" id="cd-days">00</div>
+            <div class="cd-lbl">Days / दिवस</div>
+          </div>
+          <div class="cd-cell">
+            <div class="cd-num" id="cd-hours">00</div>
+            <div class="cd-lbl">Hours / तास</div>
+          </div>
+          <div class="cd-cell">
+            <div class="cd-num" id="cd-mins">00</div>
+            <div class="cd-lbl">Mins / मिनिटे</div>
+          </div>
+          <div class="cd-cell">
+            <div class="cd-num" id="cd-secs">00</div>
+            <div class="cd-lbl">Secs / सेकंद</div>
+          </div>
+        </div>
+
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sandil+%26+Vandana+Wedding+%28%E0%A4%B6%E0%A5%81%E0%A4%AD%E0%A4%B5%E0%A4%BF%E0%A4%B5%E0%A4%BE%E0%A4%B9%29&dates=20261130T143000Z/20261201T023000Z&details=Shubh+Vivah+of+Sandil+and+Vandana+at+Morya+Lawns%2C+Samanapur%2C+Sangamner&location=Morya+Lawns%2C+Samanapur%2C+Sangamner%2C+Ahilyanagar" target="_blank" class="calendar-chip">
+          <i class="fa-regular fa-bell"></i> Save the Date to Google Calendar
+        </a>
+      </div>
+    </section>
+
+    <!-- WEDDING ITINERARY & RITUALS -->
+    <section class="events-section" id="itinerary">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Sacred Celebrations</span>
+        <h2 class="sec-title-mr">वैवाहिक कार्यक्रम पत्रिका</h2>
+        <div class="sec-divider"><span></span><i class="fa-solid fa-diamond" style="font-size: 7px; color: var(--accent-gold);"></i><span></span></div>
+      </div>
+
+      <div class="event-grid">
+        <!-- 25 Nov -->
+        <div class="event-card reveal">
+          <div class="event-date-box">
+            <span class="day">25</span>
+            <span class="month">Nov '26</span>
+          </div>
+          <div class="event-info">
+            <h4 class="event-name">उर्दी (Urdi Ceremony)</h4>
+            <p class="event-meta">बुधवार, २५ नोव्हेंबर २०२६ • पारंपारिक मांगलिक विधी व शुभारंभ</p>
+          </div>
+        </div>
+
+        <!-- 28 Nov -->
+        <div class="event-card reveal">
+          <div class="event-date-box">
+            <span class="day">28</span>
+            <span class="month">Nov '26</span>
+          </div>
+          <div class="event-info">
+            <h4 class="event-name">मटमगरा (Matmagra)</h4>
+            <p class="event-meta">शनिवार, २८ नोव्हेंबर २०२६ • कुलदेवता पूजन, मटमगरा व हळदी सोहळा</p>
+          </div>
+        </div>
+
+        <!-- 29 Nov -->
+        <div class="event-card reveal">
+          <div class="event-date-box">
+            <span class="day">29</span>
+            <span class="month">Nov '26</span>
+          </div>
+          <div class="event-info">
+            <h4 class="event-name">भत्तवान (Bhatwan)</h4>
+            <p class="event-meta">रविवार, २९ नोव्हेंबर २०२६ • स्नेही व परिवारासमवेत प्रीतीभोजन</p>
+          </div>
+        </div>
+
+        <!-- 30 Nov - Baraat & Wedding -->
+        <div class="event-card featured reveal">
+          <div class="event-date-box" style="background: linear-gradient(145deg, #8A1C2B, #4A0E1C);">
+            <span class="day">30</span>
+            <span class="month">Nov '26</span>
+          </div>
+          <div class="event-info">
+            <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent-terracotta); margin-bottom: 2px;">
+              Main Ceremony • मुख्य सोहळा
+            </div>
+            <h4 class="event-name">बारात प्रस्थान व शुभविवाह</h4>
+            <p class="event-meta">
+              <strong>बारात प्रस्थान:</strong> दुपारी २:३० वा. (निवासस्थान भारतनगर, गारखेडा परिसर येथून)<br>
+              <strong>शुभविवाह मुहूर्त:</strong> रात्रौ ठीक ८:०० वाजता
+            </p>
+          </div>
+        </div>
+
+        <!-- 01 Dec - Vidai -->
+        <div class="event-card reveal">
+          <div class="event-date-box">
+            <span class="day">01</span>
+            <span class="month">Dec '26</span>
+          </div>
+          <div class="event-info">
+            <h4 class="event-name">शुभ विदाई (Vidai)</h4>
+            <p class="event-meta">मंगळवार, १ डिसेंबर २०२६ • सकाळी ठीक ८:०० वाजता</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENUES & GOOGLE MAPS NAVIGATION -->
+    <section class="venue-section" id="venues">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Venues & Navigation</span>
+        <h2 class="sec-title-mr">निवास व विवाह स्थळ मार्गदर्शक</h2>
+        <div class="sec-divider"><span></span><i class="fa-solid fa-diamond" style="font-size: 7px; color: var(--accent-gold);"></i><span></span></div>
+      </div>
+
+      <!-- Home Location Card -->
+      <div class="location-card reveal">
+        <div class="loc-icon-header">
+          <span class="loc-pill">१. निवासस्थान व बारात प्रस्थान</span>
+          <div class="loc-circle-icon"><i class="fa-solid fa-house-flag"></i></div>
+        </div>
+        <h3 class="loc-name">विश्वकर्मा निवास (Home Location)</h3>
+        <p class="loc-sub">
+          प्लॉट नं. ०७, भारतनगर, गारखेडा परिसर,<br>
+          छत्रपती संभाजीनगर (महाराष्ट्र)<br>
+          <span style="font-size: 12px; color: var(--accent-terracotta); font-weight: 600;">
+            • ३० नोव्हेंबर रोजी दुपारी २:३० वा. येथून बारात निघेल
+          </span>
+        </p>
+        <a href="https://maps.app.goo.gl/pz6d88BAPzQ6kruo7?g_st=ic" target="_blank" class="btn-luxury secondary">
+          <i class="fa-solid fa-location-arrow"></i>
+          <span>निवासस्थान मॅप उघडा (Home Map)</span>
+        </a>
+      </div>
+
+      <!-- Route Indicator -->
+      <div class="route-connector reveal">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+        <span>बारात मार्ग (छत्रपती संभाजीनगर ➔ संगमनेर)</span>
+        <i class="fa-solid fa-car-side"></i>
+      </div>
+
+      <!-- Destination Wedding Venue Card -->
+      <div class="location-card reveal" style="border-color: var(--accent-gold); margin-bottom: 0;">
+        <div class="loc-icon-header">
+          <span class="loc-pill" style="background: rgba(158, 42, 43, 0.12); color: var(--accent-terracotta);">२. विवाह स्थळ (Destination Venue)</span>
+          <div class="loc-circle-icon" style="background: var(--bg-plum); color: var(--accent-gold-light);"><i class="fa-solid fa-archway"></i></div>
+        </div>
+        <h3 class="loc-name">मोरया लॉन्स (Morya Lawns)</h3>
+        <p class="loc-sub">
+          समनापूर, गणपती मंदिर के सामने,<br>
+          तालुका : संगमनेर, जिल्हा : अहिल्यानगर (अहमदनगर), महाराष्ट्र
+        </p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Morya+Lawns+Samanapur+Ganpati+Mandir+Sangamner+Ahilyanagar+Maharashtra" target="_blank" class="btn-luxury">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>विवाह स्थळ गुगल मॅप (Morya Lawns)</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ELDERS' BLESSINGS & FAMILY -->
+    <section class="family-section">
+      <div class="sec-head reveal">
+        <span class="eyebrow">With Warmest Regards</span>
+        <h2 class="sec-title-mr">आशीर्वाद व दर्शनाभिलाषी</h2>
+        <div class="sec-divider"><span></span><i class="fa-solid fa-diamond" style="font-size: 7px; color: var(--accent-gold);"></i><span></span></div>
+      </div>
+
+      <!-- Ashirwad -->
+      <div class="blessing-panel reveal">
+        <div class="panel-title">
+          <i class="fa-solid fa-hands-praying" style="color: var(--accent-gold);"></i>
+          <span>पूज्यनीय आशीर्वाद</span>
+        </div>
+        <div class="names-chip-wrap">
+          <span class="name-chip">स्व. नन्हकूराम मोहाल विश्वकर्मा</span>
+          <span class="name-chip">श्रीमती प्रभुदेवी नन्हकूराम विश्वकर्मा</span>
+          <span class="name-chip">स्व. सरितादेवी मुरलीधर विश्वकर्मा</span>
+        </div>
+      </div>
+
+      <!-- Darshanabhilashi -->
+      <div class="blessing-panel reveal">
+        <div class="panel-title">
+          <i class="fa-solid fa-user-tie" style="color: var(--accent-gold);"></i>
+          <span>दर्शनाभिलाषी</span>
+        </div>
+        <div class="names-chip-wrap">
+          <span class="name-chip">श्री. चन्द्रशेखर विश्वकर्मा</span>
+          <span class="name-chip">श्री. नरेन्द्र विश्वकर्मा</span>
+          <span class="name-chip">श्री. फेकूराम विश्वकर्मा</span>
+          <span class="name-chip">श्री. विद्याधर विश्वकर्मा</span>
+          <span class="name-chip">श्री. चन्द्रभूषण विश्वकर्मा</span>
+        </div>
+      </div>
+
+      <!-- Vineet -->
+      <div class="blessing-panel reveal">
+        <div class="panel-title">
+          <i class="fa-solid fa-users" style="color: var(--accent-gold);"></i>
+          <span>विनीत (समस्त विश्वकर्मा परिवार)</span>
+        </div>
+        <div class="names-chip-wrap">
+          <span class="name-chip">विरेन्द्र</span>
+          <span class="name-chip">जितेन्द्र</span>
+          <span class="name-chip">सत्येन्द्र</span>
+          <span class="name-chip">संजय</span>
+          <span class="name-chip">अजय</span>
+          <span class="name-chip">अमन</span>
+          <span class="name-chip">डॉ. राजकिशन</span>
+          <span class="name-chip">रवि</span>
+          <span class="name-chip">रोहित</span>
+        </div>
+      </div>
+
+      <!-- Bal Manuhar -->
+      <div class="bal-manuhar-luxury reveal">
+        <span class="eyebrow" style="color: var(--accent-terracotta);">बाल मनुहार • Little Hearts Invite You</span>
+        <p class="devanagari-royal" style="font-size: 20px; color: var(--bg-plum); margin: 6px 0;">
+          “हमारे मामा के शादी में जरूर-जरूर आना!”
+        </p>
+        <p style="font-size: 13px; font-weight: 600; color: var(--text-muted);">
+          — अनन्या, अदिती, साक्षी ✨
+        </p>
+      </div>
+    </section>
+
+    <!-- WHATSAPP WISHES & RSVP -->
+    <section class="rsvp-section" id="wishes">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Send Your Blessings</span>
+        <h2 class="sec-title-mr">शुभेच्छा व स्नेहसंदेश</h2>
+        <div class="sec-divider"><span></span><i class="fa-solid fa-diamond" style="font-size: 7px; color: var(--accent-gold);"></i><span></span></div>
+      </div>
+
+      <div class="rsvp-card reveal">
+        <p style="font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 16px; line-height: 1.6;">
+          संदिल आणि वंदना यांच्या भावी आयुष्यासाठी आपल्या शुभेच्छा खालील बॉक्समध्ये लिहून थेट व्हॉट्सॲपवर पाठवा.
+        </p>
+        <input type="text" id="visitorName" class="modern-input" placeholder="आपले संपूर्ण नाव (Your Name)">
+        <textarea id="visitorWish" class="modern-input" rows="3" placeholder="आपला शुभेच्छा संदेश लिहा... (Write your blessings)"></textarea>
+        <button class="btn-gold" onclick="sendWhatsAppBlessing()">
+          <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i>
+          <span>व्हॉट्सॲपवर शुभेच्छा पाठवा</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER / HOST CONTACT -->
+    <footer class="luxury-footer">
+      <span class="eyebrow" style="color: var(--accent-gold-light);">निमंत्रक • Hosted By</span>
+      <h3 class="devanagari-royal" style="font-size: 24px; color: #FFF; font-weight: 400; margin-top: 4px;">
+        श्री. मुरलीधर नन्हकूराम विश्वकर्मा
+      </h3>
+      <p style="font-size: 13px; opacity: 0.8; margin-top: 6px; line-height: 1.6;">
+        भारतनगर, प्लॉट नं. ७, गारखेडा परिसर,<br>
+        छत्रपती संभाजीनगर (महाराष्ट्र)
+      </p>
+
+      <a href="tel:+919975832025" class="call-host-btn">
+        <i class="fa-solid fa-phone-volume"></i>
+        <span>+91 99758 32025</span>
+      </a>
+
+      <div style="margin-top: 28px; font-family: 'Cormorant Garamond', serif; font-size: 15px; color: rgba(250,246,240,0.5); letter-spacing: 2px;">
+        SANDIL & VANDANA • 30.11.2026
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Curtain Open Handler
+    function openInvitation() {
+      const curtain = document.getElementById('intro-curtain');
+      curtain.style.opacity = '0';
+      curtain.style.visibility = 'hidden';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Live Countdown Timer to 30 Nov 2026, 8:00 PM
+    const targetWeddingTime = new Date("2026-11-30T20:00:00+05:30").getTime();
+
+    function refreshTimer() {
+      const now = new Date().getTime();
+      const diff = targetWeddingTime - now;
+
+      if (diff <= 0) {
+        document.getElementById('cd-days').innerText = "00";
+        document.getElementById('cd-hours').innerText = "00";
+        document.getElementById('cd-mins').innerText = "00";
+        document.getElementById('cd-secs').innerText = "00";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').innerText = String(d).padStart(2, '0');
+      document.getElementById('cd-hours').innerText = String(h).padStart(2, '0');
+      document.getElementById('cd-mins').innerText = String(m).padStart(2, '0');
+      document.getElementById('cd-secs').innerText = String(s).padStart(2, '0');
+    }
+    setInterval(refreshTimer, 1000);
+    refreshTimer();
+
+    // IntersectionObserver for Smooth Scroll-Reveal
+    const revealNodes = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealNodes.forEach(node => revealObserver.observe(node));
+
+    // Bottom Dock Active State on Scroll
+    const navLinks = document.querySelectorAll('.bottom-nav .nav-item');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    // Subtle Floating Golden Dust Particles
+    const canvas = document.getElementById('dust-canvas');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 24 }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 2.2 + 0.8,
+      vy: -(Math.random() * 0.35 + 0.15),
+      vx: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random() * 0.55 + 0.2
+    }));
+
+    function animateDust() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${p.alpha})`;
+        ctx.fill();
+
+        p.y += p.vy;
+        p.x += p.vx;
+
+        if (p.y < -10) {
+          p.y = h + 10;
+          p.x = Math.random() * w;
+        }
+      });
+      requestAnimationFrame(animateDust);
+    }
+    animateDust();
+
+    // WhatsApp Wishes Sender
+    function sendWhatsAppBlessing() {
+      const guest = document.getElementById('visitorName').value.trim() || 'स्नेही / नातेवाईक';
+      const note = document.getElementById('visitorWish').value.trim() || 'चि. संदिल व चि. सौ. कां. वंदना यांना शुभविवाहाच्या आणि भावी वैवाहिक आयुष्याच्या मनःपूर्वक शुभेच्छा!';
+      const msg = `*।। शुभविवाह शुभेच्छा ।।*%0A%0A*वर:* चि. संदिल विश्वकर्मा%0A*वधू:* चि. सौ. कां. वंदना विश्वकर्मा%0A%0A*शुभेच्छुक:* ${encodeURIComponent(guest)}%0A*संदेश:* ${encodeURIComponent(note)}`;
+      window.open(`https://api.whatsapp.com/send?phone=919975832025&text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
